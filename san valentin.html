@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para mi RUBICITA 💖</title>
+
+<style>
+
+body {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    color: white;
+    overflow-x: hidden;
+}
+
+.contenedor {
+    margin-top: 40px;
+}
+
+img {
+    width: 280px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#si, #no {
+    position: absolute;
+    padding: 15px 25px;
+    font-size: 18px;
+}
+
+#si {
+    background-color: #ff4d6d;
+    left: 40%;
+    top: 420px;
+    transition: 0.3s;
+}
+
+#no {
+    background-color: #6c757d;
+    left: 55%;
+    top: 420px;
+}
+
+.corazon {
+    position: fixed;
+    color: red;
+    animation: flotar 4s linear forwards;
+}
+
+@keyframes flotar {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="contenedor" id="login">
+    <img src="nosotros.jpeg" alt="Nosotros">
+    <h1>🔐 Área Secreta 🔐</h1>
+    <p>Solo alguien especial sabe la contraseña 💕</p>
+    <input type="password" id="password" placeholder="Contraseña secreta">
+    <br>
+    <button onclick="verificar()">Entrar 💖</button>
+    <p id="error"></p>
+</div>
+
+<script>
+
+const contrasenaCorrecta = "shis";
+let intentos = 0;
+let tamaño = 18;
+
+function verificar() {
+    let pass = document.getElementById("password").value;
+
+    if (pass === contrasenaCorrecta) {
+        lluviaCorazones(30);
+        setTimeout(mostrarPregunta, 1500);
+    } else {
+        intentos++;
+        mostrarPista();
+    }
+}
+
+function mostrarPista() {
+    let mensaje = document.getElementById("error");
+
+    if (intentos === 1) {
+        mensaje.innerHTML = "😜 Esa no es... intenta otra vez";
+    } else if (intentos === 2) {
+        mensaje.innerHTML = "💡 Pista: empieza con la letra 20 del abecedario...";
+    } else if (intentos === 3) {
+        mensaje.innerHTML = "💖 Así nos decimos...";
+    } else if (intentos === 4) {
+        mensaje.innerHTML = "😁 Tiene 4 letras...";
+    } else if (intentos >= 5) {
+        mensaje.innerHTML = "🤣 Si llegaste aquí… mejor mándame mensaje";
+    }
+}
+
+function mostrarPregunta() {
+    document.body.innerHTML = `
+        <div style="margin-top:40px; text-align:center;">
+            <img src="nosotros.jpeg" style="width:280px; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4);">
+            <h1 style="margin-top:40px;">💌 RUBICITA, ¿quieres ser mi San Valentín? 💌</h1>
+            <button id="si" onclick="aceptar()">Sí 💖</button>
+            <button id="no" onmouseover="crecer()">No 😢</button>
+        </div>
+    `;
+}
+
+function aceptar() {
+    document.body.innerHTML = `
+        <div style="margin-top:60px; text-align:center;">
+            <img src="nosotros.jpeg" style="width:300px; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4);">
+            <h1 style="margin-top:30px;">😍 Sabía que dirías que sí 😍</h1>
+            <p>Eres lo mejor que me ha pasado 💕</p>
+            <p>Feliz San Valentín mi vida ❤️</p>
+        </div>
+    `;
+    lluviaCorazones(80);
+}
+
+function crecer() {
+    tamaño += 10;
+    let botonSi = document.getElementById("si");
+    botonSi.style.fontSize = tamaño + "px";
+    botonSi.style.padding = (tamaño / 2) + "px " + tamaño + "px";
+}
+
+function lluviaCorazones(cantidad) {
+    for (let i = 0; i < cantidad; i++) {
+        let corazon = document.createElement("div");
+        corazon.innerHTML = "❤️";
+        corazon.classList.add("corazon");
+        corazon.style.left = Math.random() * 100 + "vw";
+        corazon.style.fontSize = (Math.random() * 20 + 15) + "px";
+        corazon.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(corazon);
+
+        setTimeout(() => {
+            corazon.remove();
+        }, 4000);
+    }
+}
+
+// Enter también funciona
+document.getElementById("password").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        verificar();
+    }
+});
+
+</script>
+
+</body>
+</html>
